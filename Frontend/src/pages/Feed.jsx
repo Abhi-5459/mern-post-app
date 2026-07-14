@@ -13,7 +13,7 @@ const Feed = () => {
 
 useEffect(()=>{
 
-  axios.get(`${import.meta.env.VITE_API_URL}/api/posts`)
+  axios.get(`${import.meta.env.VITE_API_URL}api/posts`)
   .then((res)=>{
     console.log(res.data);
     setpost(res.data.posts)

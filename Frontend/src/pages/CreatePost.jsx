@@ -11,7 +11,7 @@ const CreatePost = () => {
     e.preventDefault()
     const formData = new FormData(e.target)
 
-          axios.post(`${import.meta.env.VITE_API_URL}/api/create-post`,formData)
+          axios.post(`${import.meta.env.VITE_API_URL}api/create-post`,formData)
     .then((res)=> {
      console.log(res)
      navigate('/feed')
