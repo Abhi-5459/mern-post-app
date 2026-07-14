@@ -30,6 +30,12 @@ useEffect(()=>{
             <div key={post._id} className='post-card'>
               <img src={post.image} alt={post.caption} />
               <p>{post.caption}</p>
+             
+             <Link to="/create-post">
+             <button className='btn btn-primary btn-sm mt-2 '
+             >Add post</button></Link>
+                
+              
             </div>
           ))
         ): (
