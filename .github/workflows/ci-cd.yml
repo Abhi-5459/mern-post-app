@@ -72,6 +72,29 @@ jobs:
             ${{ secrets.DOCKER_USERNAME }}/post-backend:latest
             ${{ secrets.DOCKER_USERNAME }}/post-backend:${{ github.sha }}
 
-      - name: Trigger Render Deployment
-        run: |
-          curl ${{ secrets.RENDER_DEPLOY_HOOK }}      
+  deploy: 
+
+     name: Deploy to EC2
+
+     runs-on: ubuntu-latest
+
+     needs: backend
+
+     steps:
+       - name: Deploy to EC2
+         uses: appleboy/ssh-action@v1.2.2
+
+         with:
+           host: ${{ secrets.EC2_HOST }}
+           username: ${{ secrets.EC2_USER }}
+           key: ${{ secrets.EC2_SSH_KEY }}
+           port: ${{ secrets.EC2_PORT }}
+
+           script: |
+             cd ~
+
+             docker pull ${{ secrets.DOCKER_USERNAME }}/post-backend:latest
+
+             docker compose -f docker-compose.ec2.yml down
+
+             docker compose -f docker-compose.ec2.yml up -d
